@@ -1,0 +1,23 @@
+ export const style={
+    header:'flex  items-center justify-between',
+    Logo:'font-semibold text-3xl text-primary',
+    nav:' hidden md:flex  gap-8 text-gray-500 font-semibold',
+    btn:'bg-primary text-white px-8 py-2 rounded-full',
+    section:'grid grid-cols-2 mt-16',
+    desc:'my-4 text-gray-700',
+    btnicon:'inline border-2  rounded-full',
+    btnlearnmore:'flex gap-2 font-semibold px-8 py-2',
+    imgdiv:' w-90 h-80 rounded-full relative mt-4',
+    Editbtn:"rounded-lg font-bold border-2 mt-4 border-gray-300 p-2 w-28",
+    head:"text-6xl font-semibold",
+    Menuediv:"flex flex-col justify-center items-center mt-10",
+    Menueitm:'bg-gray-200 cursor-pointer border-2 rounded-lg text-center group   hover:bg-red-600  hover:shadow-black transition-all',
+    menuetopdiv:'md:flex sm:w-full justify-center items-center  mt-2 gap-4',
+    contact:'text-gray-500 max-w-2xl flex flex-col items-center  mx-auto mt-20',
+    phone:' text-3xl text-center text-black border-b-2 border-black',
+    registertxt:"text-center text-primary text-4xl mb-4",
+    form:'flex flex-col gap-4 max-w-sm justify-center m-auto',
+    input:'border-2 border-gray-400 rounded-md p-2 font-semibold',
+    btngoogle:'border-2 flex gap-4 justify-center font-semibold border-gray-400 p-2 rounded-md',
+    divreg:"my-4 text-center text-gray-500"
+}
