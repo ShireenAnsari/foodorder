@@ -8,7 +8,7 @@
     btnicon:'inline border-2  rounded-full',
     btnlearnmore:'flex gap-2 font-semibold px-8 py-2',
     imgdiv:' w-90 h-80 rounded-full relative mt-4',
-    Editbtn:"rounded-lg font-bold border-2 mt-4 border-gray-300 p-2 w-28",
+    Editbtn:"rounded-lg font-bold border-2 mt-4 border-gray-300 p-2 w-28 cursor-pointer",
     head:"text-6xl font-semibold",
     Menuediv:"flex flex-col justify-center items-center mt-10",
     Menueitm:'bg-gray-200 cursor-pointer border-2 rounded-lg text-center group   hover:bg-red-600  hover:shadow-black transition-all',
