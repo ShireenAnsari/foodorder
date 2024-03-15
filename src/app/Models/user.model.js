@@ -14,11 +14,6 @@ required:true
     required:true,
 },
 image: {type: String},
-address: {type: String},
-postalcode: {type: String},
-city: {type: String},
-country: {type: String},
-phone: {type: String},
 },{timestamps:true})
 
 // Userschema.pre('save', async function (next) {

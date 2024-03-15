@@ -1,13 +1,14 @@
 'use client'
 import  { useState } from 'react'
 import { style } from '@/app/utills/style'
-import {signIn} from "next-auth/react"
+import {signIn, useSession} from "next-auth/react"
 import Image from 'next/image'
 const Login = () => {
-  const [email,setemail]=useState('');
-  const [password,setpassword]=useState('');
-  const [Loginprogress,SetLoginProgress]=useState(false)
-  
+const [email,setemail]=useState('');
+const [password,setpassword]=useState('');
+const [Loginprogress,SetLoginProgress]=useState(false)
+const session=useSession();
+console.log(session);
 async function handlesubmit(ev){
 ev.preventDefault();
 SetLoginProgress(true)
