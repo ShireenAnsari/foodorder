@@ -2,16 +2,33 @@
 import { _usefetchuser } from '@/app/actions/_usefetchdata';
 import { style } from '@/app/utills/style';
 import MenueTabs from '@/components/Menues/MenueTabs';
-import UploadImage from '@/components/UploadImage';
-import React, { useState } from 'react'
+import axios from 'axios';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
+import { Edit2, PlusCircle, Trash2 } from 'react-feather';
+import toast from 'react-hot-toast';
+
 
 const Menue = () => {
     const { isAdmin ,status} = _usefetchuser();
-   const [state,setstate]=useState({
-    name:'',
-    description:'',
-    image:''
-   })
+    const [data,setdata]=useState({})
+    const id=123;
+    const Fetchmenues=useCallback(async()=>{
+      try {
+        const Getdata=await axios.get('/api/menue-items')
+        console.log(Getdata?.data)
+        if(Getdata.status===200)
+        {
+          setdata(Getdata?.data);
+        }
+      } catch (error) {
+        
+      }
+    },[])
+    useEffect(()=>{
+      Fetchmenues();
+    },[Fetchmenues])
     if(status==='loading')
     {
         return 'Loading userinfo ...'
@@ -20,44 +37,69 @@ const Menue = () => {
     {
         return'Not and admin';
     }
+    const Handledelete=async(_id)=>{
+      const alert=window.confirm('Are you sure you want to delete?');
+      if(alert)
+      {
+        try {
+          await axios.delete(`/api/menue-items?_id=${_id}`)
+          toast.success('Category Deleted');
+          Fetchmenues();
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      else{
+        return
+      }
+      
+    }
+ 
+
   return (
-    <section className='mt-8'>
+    <section className='mt-8 flex flex-col justify-center m-auto'>
           <MenueTabs isAdmin={isAdmin}/>
-          <form  
-           className={`flex m-auto justify-center mt-12 gap-4`}
-          >
-             <div>
-                <UploadImage state={state} setState={setstate}/>
-            </div>
-          <div className="flex flex-col w-1/3">
-            <label htmlFor="name">Menue item Name</label>
-            <input 
-              name="name"
-              type="text"
-              className={`${style.input} bg-gray-200 `}
-            />
-             <label htmlFor="desc">Description</label>
-            <input 
-              name="desc"
-              type="text"
-              className={`${style.input} bg-gray-200  `}
-            />
-            <label htmlFor="baseprice">Base price</label>
-            <input 
-              name="baseprice"
-              type="text"
-              className={`${style.input} bg-gray-200  `}
-            />
-           
-            <button className={`${style.btn} bg-gray-200 mt-2`}>Save</button>
-           
-           
+          <div className='flex justify-center m-auto mt-8 border-2 rounded-sm  p-2 border-black'>
+          <Link  role='button' href={'/Menue/newitm'}> Create Menue <PlusCircle className='inline'/></Link>
           </div>
-          
-          
-          
-         
-        </form>
+          <div className={`${style.categorydiv} w-full`}>
+        <div className=" w-3/4">
+          <h1 className={style.heading}>All Categories</h1>
+          <table className={style.table}>
+            <thead className="bg-gray-200">
+              <tr className="p-4">
+                <th className={style.td}>Sno</th>
+                <th className={style.td}>Name</th>
+                <th className={style.td}>Base Price</th>
+                <th className={style.td}>Image</th>
+                <th className={style.td}>Actions</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+             
+              {data?.map((x,index)=>(
+                <tr key={x} className={style.tr}>
+                <td className={style.td}>{index+=1}</td>
+                <td className={style.td}>{x.name}</td>
+                <td className={style.td}>{x.basePrice}</td>
+                <td className={style.td}><Image className='flex justify-center m-auto mt-3' src={x.image} width={150} height={150}/></td>
+                {/* image */}
+                <td className={style.td}>
+                  <Link href={`/Menue/Updatedata/${x._id}`}><Edit2 className={style.tbtn} /></Link>
+                  {/* <Edit2  onClick={() => handleEdit(x._id,x.name)}  className={style.tbtn} /> */}
+                  <Trash2 onClick={()=>Handledelete(x._id)} className={style.tbtn} />
+                </td>
+              </tr>
+              ))}
+              
+            </tbody>
+          </table>
+        </div>
+
+        <div></div>
+      </div>
+      
     </section>
   )
 }

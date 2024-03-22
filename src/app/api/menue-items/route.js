@@ -24,11 +24,11 @@ export async function PUT(req) {
 }
 
 export async function GET() {
-  Db()
-  return Response.json(
-    await MenuItem.find()
-  );
+  Db();  
+    return Response.json(await MenuItem.find())
 }
+
+
 
 export async function DELETE(req) {
   Db()

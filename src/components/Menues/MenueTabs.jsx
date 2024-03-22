@@ -4,7 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 const Links=[
 {name:'categories',
-pathname:'/categories'},
+pathname:'/categories'
+},
 {name:'Menue items',
 pathname:'/Menue'},
 {name:'Users',
@@ -15,7 +16,7 @@ const MenueTabs = ({isAdmin}) => {
   const path=usePathname()
   return (
     <div className="flex gap-2 m-auto justify-center">
-    <Link  className={`${path==='/profile'?style.active:style.btnmenunars}`} href={"/profile"}>
+    <Link  className={`${path==='/profile' ?style.active:style.btnmenunars}`} href={"/profile"}>
       Profile
     </Link>
     {isAdmin && (

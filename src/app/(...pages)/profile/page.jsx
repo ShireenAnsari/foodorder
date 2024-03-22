@@ -4,7 +4,6 @@ import { style } from "@/app/utills/style";
 import MenueTabs from "@/components/Menues/MenueTabs";
 import UploadImage from "@/components/UploadImage";
 import axios from "axios";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { X } from "react-feather";
