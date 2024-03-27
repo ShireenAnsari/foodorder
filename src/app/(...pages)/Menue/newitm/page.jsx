@@ -17,12 +17,21 @@ const Newitems = () => {
       image:'',
       basePrice:''
      })
-    
+     const [sizes,setsizes]=useState([]) 
+     const [extraIngrediants,setExtraIngrediants]=useState([]);
+    console.log('This is ',extraIngrediants);
+    console.log('This is' ,sizes);
+    const data = {
+      state: state,
+      sizes: sizes,
+      extraIngredients:extraIngrediants
+    };
       async function HandleSubmit(ev){
         ev.preventDefault();
         console.log('Submitting');
+        console.log('after submit',data)
       try {
-         const res= await axios.post('/api/menue-items',state);
+         const res= await axios.post('/api/menue-items',data);
          console.log(res)
          if(res.status===200)
          {
@@ -53,7 +62,7 @@ const Newitems = () => {
  <Link  role='button' href={'/Menue/'}> <ArrowLeft className='inline'/> Go back to Menues</Link>
           </div>
          
-        <Menueform state={state} setState={setstate} HandleSubmit={HandleSubmit}/>
+        <Menueform extraIngrediants={extraIngrediants} setExtraIngrediants={setExtraIngrediants} sizes={sizes} setsizes={setsizes} state={state} setState={setstate} HandleSubmit={HandleSubmit}/>
     </section>
    </div>
 

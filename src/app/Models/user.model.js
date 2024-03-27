@@ -29,4 +29,4 @@ image: {type: String},
 //       next();
 //     }
 //   });
-export const User=models?.User || model('User',Userschema);
+export const User=models?.Users || model('Users',Userschema);

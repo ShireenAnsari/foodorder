@@ -2,11 +2,20 @@
 import { _usefetchuser } from '@/app/actions/_usefetchdata';
 import Menueform from '@/components/Menues/Menueform';
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 import  { useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const Update = ({params}) => {
     const {status,isAdmin}=_usefetchuser()
   const [data,setdata]=useState({})
+  const [sizes,setsizes]=useState([]) 
+  const [extraIngrediants,setExtraIngrediants]=useState([]);
+  const datamenue = {
+    data: data,
+    sizes: sizes,
+    extraIngredients:extraIngrediants
+  };
      const _id=params.Id
      const Fetchmenues = useCallback(async () => {
       console.log('Getting data');
@@ -14,7 +23,11 @@ const Update = ({params}) => {
         const Getdata = await axios.get(`/api/menue-by-id?_id=${_id}`);
 
           console.log(Getdata?.data);
-          setdata(Getdata?.data)
+          const { sizes, extraIngredients,...others}=Getdata?.data.user
+          console.log(data)
+          setdata(others)
+          setsizes(sizes)
+          setExtraIngrediants(extraIngredients)
           // Handle received data as needed
       } catch (error) {
           console.error('Error fetching data:', error);
@@ -24,23 +37,22 @@ const Update = ({params}) => {
     useEffect(()=>{
       Fetchmenues();
     },[])
-    async function HandleSubmit(ev){
-        ev.preventDefault();
-        console.log('Submitting');
-      try {
-         const res= await axios.post('/api/menue-items',state);
-         console.log(res)
-         if(res.status===200)
-         {
-            toast.success('Successfully added');
-       return  redirect('/Menue')
-     
-         }
-          }
-       catch (error) {
-        console.log(error);
+  const HandleSubmit=async(e)=>{
+    e.preventDefault()
+    try {
+      const res= await axios.put('/api/menue-items',datamenue);
+      console.log(res)
+      if(res.status===200)
+      {
+         toast.success('Successfully updated data');
+       
+        //  redirect('/Menue');
       }
+       
+       }catch (error) {
+      console.log(error)
     }
+  }
     if(status==='loading')
     {
         return 'Loading user info...'
@@ -49,13 +61,14 @@ const Update = ({params}) => {
     {
         return 'Not authenticated'
     }
+
   return (
     <div>
  {/* My Post: {params.Id}
 
  {JSON.stringify(data)} */}
 
- <Menueform state={data?.user} setState={setdata} />
+ <Menueform state={data} sizes={sizes} setsizes={setsizes} extraIngrediants={extraIngrediants} setExtraIngrediants={setExtraIngrediants} setState={setdata}  HandleSubmit={HandleSubmit}   />
     </div>
    
   )

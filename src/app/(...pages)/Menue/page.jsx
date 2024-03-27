@@ -13,14 +13,14 @@ import toast from 'react-hot-toast';
 const Menue = () => {
     const { isAdmin ,status} = _usefetchuser();
     const [data,setdata]=useState({})
-    const id=123;
+    // const id=123;
     const Fetchmenues=useCallback(async()=>{
       try {
         const Getdata=await axios.get('/api/menue-items')
         console.log(Getdata?.data)
         if(Getdata.status===200)
         {
-          setdata(Getdata?.data);
+          setdata(Getdata.data);
         }
       } catch (error) {
         
