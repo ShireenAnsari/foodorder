@@ -21,7 +21,7 @@ const MenueTabs = ({isAdmin}) => {
     </Link>
     {isAdmin && (
       <>
-       {Links.map((x)=><Link className={`${path===x.pathname?style.active:style.btnmenunars}`}  href={x.pathname}>{x.name}</Link>)}
+       {Links.map((x,i)=><Link key={i} className={`${path===x.pathname?style.active:style.btnmenunars}`}  href={x.pathname}>{x.name}</Link>)}
       </>
     )}
   </div>

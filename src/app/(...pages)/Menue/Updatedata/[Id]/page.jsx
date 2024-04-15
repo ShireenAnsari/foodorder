@@ -2,19 +2,17 @@
 import { _usefetchuser } from '@/app/actions/_usefetchdata';
 import Menueform from '@/components/Menues/Menueform';
 import axios from 'axios';
-import { redirect } from 'next/navigation';
 import  { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const Update = ({params}) => {
     const {status,isAdmin}=_usefetchuser()
   const [data,setdata]=useState({})
-  const [sizes,setsizes]=useState([]) 
-  const [extraIngrediants,setExtraIngrediants]=useState([]);
+  const [sizes,setsizes]=useState({}) 
   const datamenue = {
     data: data,
     sizes: sizes,
-    extraIngredients:extraIngrediants
+    
   };
      const _id=params.Id
      const Fetchmenues = useCallback(async () => {
@@ -23,11 +21,11 @@ const Update = ({params}) => {
         const Getdata = await axios.get(`/api/menue-by-id?_id=${_id}`);
 
           console.log(Getdata?.data);
-          const { sizes, extraIngredients,...others}=Getdata?.data.user
+          const { sizes,...others}=Getdata?.data.user
           console.log(data)
           setdata(others)
           setsizes(sizes)
-          setExtraIngrediants(extraIngredients)
+         
           // Handle received data as needed
       } catch (error) {
           console.error('Error fetching data:', error);
@@ -41,6 +39,7 @@ const Update = ({params}) => {
     e.preventDefault()
     try {
       const res= await axios.put('/api/menue-items',datamenue);
+      console.log(datamenue)
       console.log(res)
       if(res.status===200)
       {
@@ -68,7 +67,8 @@ const Update = ({params}) => {
 
  {JSON.stringify(data)} */}
 
- <Menueform state={data} sizes={sizes} setsizes={setsizes} extraIngrediants={extraIngrediants} setExtraIngrediants={setExtraIngrediants} setState={setdata}  HandleSubmit={HandleSubmit}   />
+ {/* <Menueform state={data} sizes={sizes} setsizes={setsizes} extraIngrediants={extraIngrediants} setExtraIngrediants={setExtraIngrediants} setState={setdata}  HandleSubmit={HandleSubmit}   /> */}
+  <Menueform  sizes={sizes} setsizes={setsizes} state={data} setState={setdata} HandleSubmit={HandleSubmit}/>
     </div>
    
   )

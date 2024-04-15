@@ -7,28 +7,56 @@ import { getServerSession } from "next-auth";
 
 export  async function PUT(req) {
   Db();
-  mongoose.model('User');
-  const session = await getServerSession(Authoptions);
+  mongoose.model('Users');
     const data = await req.json();
-    const {name,image,...other}=data;
-    console.log({session,data});
-    console.log({other});
-     const email = session.user.email;
-     const res= await User.updateOne({ email },{name:data.name,image:data.image});
-     await UserInfo.findOneAndUpdate({email},other,{upsert:true})
-  console.log(res);
-  return  Response.json({ message: "ok" });
+    const {_id,name,image,...other}=data;
+    console.log('Id is ',_id);
+    let filter = {};
+    if (_id) {
+      filter = {_id};
+    }
+    else {
+      const session = await getServerSession(Authoptions);
+      const email = session.user.email;
+      filter = {email};
+      console.log({session,data});
+    }
+    console.log(other)
+    const user = await User.findOne(filter);
+      const res =await User.updateOne(filter, {name:data.name,image:data.image});
+       await UserInfo.findOneAndUpdate({email:user.email}, other, {upsert:true});
+       //  const res= await User.updateOne({ email },{name:data.name,image:data.image});
+       //  await UserInfo.findOneAndUpdate({email},other,{upsert:true})
+     console.log(res);
+    return  Response.json({ message: "ok" });
+  
+    // console.log({other});
+   
 }
-export async function GET() {
+export async function GET(req) {
   Db();
-  const session = await getServerSession(Authoptions);
-  const email = session?.user?.email;
+  const url = new URL(req.url);
+  // console.log(url)
+  const _id = url.searchParams.get('_id'); // Corrected syntax
+  console.log('url id is ', _id);
 
-  if (!email) {
-    return Response.json({ message: 'ok' });
+  let filterUser = {};
+  if (_id) {
+    filterUser = {_id};
+  }
+  else {
+    const session = await getServerSession(Authoptions);
+    const email = session?.user?.email;
+    if (!email) {
+      return Response.json({});
+    }
+    filterUser = {email};
   }
 
-  const user = await User.findOne({ email }).lean().exec();
-  const userinfo = await UserInfo.findOne({ email }).lean().exec();
-  return Response.json({ ...user, ...userinfo });
+  const user = await User.findOne(filterUser).lean();
+  const userInfo = await UserInfo.findOne({email:user.email}).lean();
+
+  return Response.json({...user, ...userInfo});
+
 }
+

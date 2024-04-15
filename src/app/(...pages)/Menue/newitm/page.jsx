@@ -15,7 +15,8 @@ const Newitems = () => {
       name:'',
       description:'',
       image:'',
-      basePrice:''
+      basePrice:'',
+      category:''
      })
      const [sizes,setsizes]=useState([]) 
      const [extraIngrediants,setExtraIngrediants]=useState([]);

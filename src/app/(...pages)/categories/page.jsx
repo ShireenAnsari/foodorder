@@ -13,7 +13,7 @@ const CategoriesPage = () => {
   const [name,setcategory]=useState('');
   const [msg, setmsg] = useState(false);
   const [id,setId]=useState('');
-  const [data,setdata]=useState({})
+  const [data,setdata]=useState([])
   const [editMode, setEditMode] = useState(false);
   const [editedName, setEditedName] = useState('');
   console.log("admin is ", isAdmin);

@@ -23,9 +23,9 @@ const Header = () => {
         </Link>
         <nav className={`${style.nav}`}>
           <Link href="/">Home</Link>
-          <Link href="">Menue</Link>
-          <Link href="">About</Link>
-          <Link href="">Contact</Link>
+          <Link href="/MenuePage">Menue</Link>
+          <Link href="/#About">About</Link>
+          <Link href="/#contact">Contact</Link>
         </nav>
         <div className="flex gap-4">
           {status === "authenticated" && (

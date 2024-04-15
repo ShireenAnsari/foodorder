@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 
 const Menue = () => {
     const { isAdmin ,status} = _usefetchuser();
-    const [data,setdata]=useState({})
+    const [data,setdata]=useState([])
     // const id=123;
     const Fetchmenues=useCallback(async()=>{
       try {
@@ -79,14 +79,14 @@ const Menue = () => {
             <tbody>
              
               {data?.map((x,index)=>(
-                <tr key={x} className={style.tr}>
+                <tr key={index} className={style.tr}>
                 <td className={style.td}>{index+=1}</td>
                 <td className={style.td}>{x.name}</td>
                 <td className={style.td}>{x.basePrice}</td>
                 <td className={style.td}><Image className='flex justify-center m-auto mt-3' src={x.image} width={150} height={150}/></td>
                 {/* image */}
                 <td className={style.td}>
-                  <Link href={`/Menue/Updatedata/${x._id}`}><Edit2 className={style.tbtn} /></Link>
+                  <Link type='button' href={`/Menue/Updatedata/${x._id}`}><Edit2 className={style.tbtn} /></Link>
                   {/* <Edit2  onClick={() => handleEdit(x._id,x.name)}  className={style.tbtn} /> */}
                   <Trash2 onClick={()=>Handledelete(x._id)} className={style.tbtn} />
                 </td>

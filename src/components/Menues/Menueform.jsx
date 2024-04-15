@@ -1,10 +1,26 @@
 import { style } from "@/app/utills/style"
 import UploadImage from "../UploadImage"
-import { useState } from "react";
 
-import Menueitemsizeprop from "./Menueitemsizeprop";
-const Menueform = ({HandleSubmit,state,setState,extraIngrediants,setExtraIngrediants,sizes,setsizes}) => {
+import Menueitemsizeprop from "./Menueitemsizeprop"
+import axios from "axios"
+import { useCallback, useEffect, useState } from "react"
+const Menueform = ({HandleSubmit,state,setState,sizes,setsizes}) => {
 console.log(state);
+const [data,setdata]=useState([])
+const [category, setCategory] = useState(state?.category || '');
+console.log(state)
+const getCategories = useCallback(async () => {
+  try {
+    const res = await axios.get('/api/categories');
+    setdata(res?.data);
+    console.log(res);
+  } catch (error) {
+    console.error(error);
+  }
+}, []);
+useEffect(() => {
+  getCategories();
+}, [getCategories]); // Dependency added here
   const inputHandle = (e) => {
     setState({
       ...state,
@@ -47,9 +63,15 @@ console.log(state);
               type="text"
               className={`${style.input} bg-gray-200  `}
             />
+            {console.log(category)}
+              <select className={style.input} onChange={ev => setCategory(ev.target.value)}>
+                <option>Please select any category</option>
+            {data?.length > 0 && data.map(c => (
+              <option key={c._id} value={c._id}>{c.name}</option>
+            ))}
+          </select>
+
             <Menueitemsizeprop  sizes={sizes} setsizes={setsizes} addLabel={'Add item Sizes'} name={'Sizes'}/>
-            <Menueitemsizeprop sizes={extraIngrediants} setsizes={setExtraIngrediants} addLabel={'Add Extra ingrediants'} name={'Extra Ingrediants'}/>
-          
             <button type="submit" className={`${style.btn} bg-gray-200 mt-2`}>Save</button>
            
            

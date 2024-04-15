@@ -17,6 +17,7 @@ export async function POST(req) {
         name: state.name,
         description: state.description,
         basePrice: state.basePrice,
+        category:state.category,
         image:state.image,
         sizes: sizes.map(size => ({ name: size.name, price: size.price })),
         extraIngrediants: extraIngredients.map(ingredient => ({ name: ingredient.name, price: ingredient.price }))
