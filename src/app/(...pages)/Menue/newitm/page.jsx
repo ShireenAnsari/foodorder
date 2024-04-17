@@ -19,13 +19,11 @@ const Newitems = () => {
       category:''
      })
      const [sizes,setsizes]=useState([]) 
-     const [extraIngrediants,setExtraIngrediants]=useState([]);
-    console.log('This is ',extraIngrediants);
-    console.log('This is' ,sizes);
+    
+    // console.log('This is' ,sizes);
     const data = {
       state: state,
-      sizes: sizes,
-      extraIngredients:extraIngrediants
+      sizes: sizes
     };
       async function HandleSubmit(ev){
         ev.preventDefault();
@@ -63,7 +61,7 @@ const Newitems = () => {
  <Link  role='button' href={'/Menue/'}> <ArrowLeft className='inline'/> Go back to Menues</Link>
           </div>
          
-        <Menueform extraIngrediants={extraIngrediants} setExtraIngrediants={setExtraIngrediants} sizes={sizes} setsizes={setsizes} state={state} setState={setstate} HandleSubmit={HandleSubmit}/>
+        <Menueform sizes={sizes} setsizes={setsizes} state={state} setState={setstate} HandleSubmit={HandleSubmit}/>
     </section>
    </div>
 

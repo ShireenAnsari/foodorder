@@ -5,10 +5,9 @@ import { MenuItem } from "@/app/Models/Menueitems.model";
 
 export async function POST(req) {
   Db();
-  const { state, sizes, extraIngredients } = await req.json();
+  const { state, sizes } = await req.json();
   console.log('Menu state:', state);
   console.log('Sizes:', sizes);
-  console.log('Extra Ingredients:', extraIngredients);
   
   if (await isAdmin()) {
     try {
@@ -20,7 +19,6 @@ export async function POST(req) {
         category:state.category,
         image:state.image,
         sizes: sizes.map(size => ({ name: size.name, price: size.price })),
-        extraIngrediants: extraIngredients.map(ingredient => ({ name: ingredient.name, price: ingredient.price }))
       };
 
       // Create a new MenuItem document
@@ -43,15 +41,16 @@ export async function PUT(req) {
   Db()
   if (await isAdmin()) {
     // 
-    const { data, sizes, extraIngredients } = await req.json();
+    const { data, sizes } = await req.json();
     const id=data._id
     const menuItemData = {
       name: data.name,
       description: data.description,
       basePrice: data.basePrice,
       image:data.image,
+      category:data.category,
       sizes: sizes?.map(size => ({ name: size.name, price: size.price })),
-      extraIngrediants: extraIngredients?.map(ingredient => ({ name: ingredient.name, price: ingredient.price }))
+      
     };
 
    

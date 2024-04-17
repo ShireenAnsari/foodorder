@@ -11,7 +11,7 @@ const Profile = () => {
 
   async function submit(ev) {
     ev.preventDefault();
-    console.log(state);
+    // console.log(state);
     
     try {
       const res = await axios.put("/api/profile", state);

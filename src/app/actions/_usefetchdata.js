@@ -25,7 +25,7 @@ export const _usefetchuser = () => {
       const response = await axios.get("/api/profile", {
         cache: "force-cache",
       });
-      console.log('data is', response);
+      // console.log('data is', response);
       setIsAdmin(response?.data.admin);
       setState({
         image: response?.data?.image,
@@ -73,9 +73,9 @@ export const _usefetchuserId = (_id) => {
   const fetchdata = useCallback(async (_id) => { // Accept _id as a parameter
     try {
       setLoading(true);
-      console.log('Id is in fetch data', _id)
+      // console.log('Id is in fetch data', _id)
       const response = await axios.get(`/api/profile?_id=${_id}`);
-      console.log('data is', response);
+      // console.log('data is', response);
       setIsAdmin(response?.data.admin);
       setState({
         image: response?.data?.image,

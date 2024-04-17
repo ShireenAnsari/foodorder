@@ -17,7 +17,7 @@ const Menue = () => {
     const Fetchmenues=useCallback(async()=>{
       try {
         const Getdata=await axios.get('/api/menue-items')
-        console.log(Getdata?.data)
+        // console.log(Getdata?.data)
         if(Getdata.status===200)
         {
           setdata(Getdata.data);
@@ -75,7 +75,6 @@ const Menue = () => {
                 <th className={style.td}>Actions</th>
               </tr>
             </thead>
-            
             <tbody>
              
               {data?.map((x,index)=>(
@@ -83,7 +82,7 @@ const Menue = () => {
                 <td className={style.td}>{index+=1}</td>
                 <td className={style.td}>{x.name}</td>
                 <td className={style.td}>{x.basePrice}</td>
-                <td className={style.td}><Image className='flex justify-center m-auto mt-3' src={x.image} width={150} height={150}/></td>
+                <td className={style.td}><Image className='flex justify-center m-auto mt-3' src={x.image} width={150} height={150} alt='img'/></td>
                 {/* image */}
                 <td className={style.td}>
                   <Link type='button' href={`/Menue/Updatedata/${x._id}`}><Edit2 className={style.tbtn} /></Link>

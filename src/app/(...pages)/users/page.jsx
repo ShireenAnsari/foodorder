@@ -25,7 +25,7 @@ const Userpage = () => {
       });
   }, []);
 
-  console.log(isAdmin);
+  // console.log(isAdmin);
 
   if (status === 'loading') {
     return 'Loading userinfo ...';
@@ -35,7 +35,7 @@ const Userpage = () => {
     return 'Not an admin';
   }
   
-  console.log(user);
+  // console.log(user);
 
   return (
     <section className='mt-8 max-w-2xl mx-auto'>

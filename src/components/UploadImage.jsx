@@ -7,13 +7,13 @@ const UploadImage = ({state,setState}) => {
     async function handleFilechange(ev) {
         console.log("Image");
         const files = ev?.target.files;
-        console.log(files);
+        // console.log(files);
         if (files?.length === 1) {
           const data = new FormData();
-          console.log("data is", data);
+          // console.log("data is", data);
           data.set("file", files[0]);
           const res = await axios.post("/api/upload", data);
-          console.log(res);
+          // console.log(res);
           const fileData = res.data;
           const filename = fileData.filename;
           setState((prevState) => ({

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 
 const Menueitems = ({itm}) => {
-console.log('itm is ',itm)
+// console.log('itm is ',itm)
   return (
     <div className={`${style.Menueitm}   p-8 w-80`}>
  <div className='w-40 h-40 flex  m-auto  relative'>

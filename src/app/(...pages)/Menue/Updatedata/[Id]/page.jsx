@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 const Update = ({params}) => {
     const {status,isAdmin}=_usefetchuser()
-  const [data,setdata]=useState({})
+  const [data,setdata]=useState([])
   const [sizes,setsizes]=useState({}) 
   const datamenue = {
     data: data,
@@ -16,13 +16,12 @@ const Update = ({params}) => {
   };
      const _id=params.Id
      const Fetchmenues = useCallback(async () => {
-      console.log('Getting data');
       try {
         const Getdata = await axios.get(`/api/menue-by-id?_id=${_id}`);
 
-          console.log(Getdata?.data);
+          // console.log(Getdata?.data);
           const { sizes,...others}=Getdata?.data.user
-          console.log(data)
+          // console.log(data)
           setdata(others)
           setsizes(sizes)
          
@@ -39,8 +38,8 @@ const Update = ({params}) => {
     e.preventDefault()
     try {
       const res= await axios.put('/api/menue-items',datamenue);
-      console.log(datamenue)
-      console.log(res)
+      // console.log(datamenue)
+      // console.log(res)
       if(res.status===200)
       {
          toast.success('Successfully updated data');

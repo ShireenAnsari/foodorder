@@ -16,12 +16,12 @@ const CategoriesPage = () => {
   const [data,setdata]=useState([])
   const [editMode, setEditMode] = useState(false);
   const [editedName, setEditedName] = useState('');
-  console.log("admin is ", isAdmin);
+  // console.log("admin is ", isAdmin);
   const getCategories = useCallback(async () => {
     try {
       const res = await axios.get('/api/categories');
       setdata(res?.data);
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -35,7 +35,7 @@ const CategoriesPage = () => {
         toast.success('Category updated successfully');
       } else if(!editMode){
         // If not in edit mode, create a new category
-        console.log('Name is',name);
+        // console.log('Name is',name);
         const res = await axios.post('/api/categories', { name });
         if (res.status === 200) {
           toast.success('Category created successfully');
@@ -117,7 +117,7 @@ const handleEdit = (_id, name) => {
             <tbody>
              
               {data?.map((x,index)=>(
-                <tr key={x} className={style.tr}>
+                <tr key={index} className={style.tr}>
                 <td className={style.td}>{index+=1}</td>
                 <td className={style.td}>{x.name}</td>
                 <td className={style.td}>

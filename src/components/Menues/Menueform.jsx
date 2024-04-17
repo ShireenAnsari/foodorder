@@ -5,15 +5,14 @@ import Menueitemsizeprop from "./Menueitemsizeprop"
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react"
 const Menueform = ({HandleSubmit,state,setState,sizes,setsizes}) => {
-console.log(state);
+// console.log(state);
 const [data,setdata]=useState([])
-const [category, setCategory] = useState(state?.category || '');
-console.log(state)
+// console.log(state)
 const getCategories = useCallback(async () => {
   try {
     const res = await axios.get('/api/categories');
     setdata(res?.data);
-    console.log(res);
+    // console.log(res);
   } catch (error) {
     console.error(error);
   }
@@ -60,16 +59,23 @@ useEffect(() => {
             value={state.basePrice}
             onChange={inputHandle}
               name="basePrice"
-              type="text"
+              type="number"
               className={`${style.input} bg-gray-200  `}
             />
-            {console.log(category)}
-              <select className={style.input} onChange={ev => setCategory(ev.target.value)}>
-                <option>Please select any category</option>
-            {data?.length > 0 && data.map(c => (
-              <option key={c._id} value={c._id}>{c.name}</option>
-            ))}
-          </select>
+            <select name="category" value={state.category} className={style.input} onChange={inputHandle}>
+  {data?.length > 0 && (
+    <>
+      {state.category && !data.find(c => c._id === state.category) && (
+        // If state.category doesn't match any category in data, render the default option
+        <option value={state.category}>Loading...</option>
+      )}
+      {data.map(c => (
+        <option key={c._id} value={c._id}>{c.name}</option>
+      ))}
+    </>
+  )}
+</select>
+
 
             <Menueitemsizeprop  sizes={sizes} setsizes={setsizes} addLabel={'Add item Sizes'} name={'Sizes'}/>
             <button type="submit" className={`${style.btn} bg-gray-200 mt-2`}>Save</button>

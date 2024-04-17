@@ -25,9 +25,9 @@ const Menueitemsizeprop = ({name,sizes,setsizes,addLabel}) => {
   return (
     <div className="bg-gray-200 rounded-md mb-2 flex flex-col">
     <label >{name}</label>
-    {console.log(sizes)}
+    {/* {console.log(sizes)} */}
     {sizes?.length>0 && sizes.map((size,index)=>(
-     <div className="flex ">
+     <div className="flex " key={index}>
        <div>
        <label htmlFor="basePrice">Size name</label>
        <input className={`${style.input} w-28`}
