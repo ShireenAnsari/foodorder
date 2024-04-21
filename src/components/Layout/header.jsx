@@ -2,12 +2,15 @@
 import { style } from "@/app/utills/style";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { LogIn, LogOut, User } from "react-feather";
+import { useContext } from "react";
+import { LogIn, LogOut, ShoppingCart, User } from "react-feather";
+import { CartContext } from "../Appcontext";
 const Header = () => {
   const session = useSession();
   const status = session.status;
   const UserData = session?.data?.user;
   let UserName = UserData?.name || UserData?.email;
+  const {cartProducts}=useContext(CartContext);
 
   if (UserName && typeof UserName === "string" && UserName.includes(" ")) {
     UserName = UserName.split(" ")[0];
@@ -48,6 +51,18 @@ const Header = () => {
               </Link>
             </>
           )}
+          <Link href={'/cart'} className="relative">
+            <ShoppingCart />
+            {cartProducts?.length > 0 && (
+              <span className="absolute -top-2 -right-4 bg-primary text-white text-xs py-1 px-1 rounded-full leading-3">
+            {cartProducts.length}
+          </span>
+            )}
+          </Link>
+          {/* {console.log(cartProducts?.length)}
+         <ShoppingCart/>
+            <Link href={'/'}>CART ({cartProducts?.length})</Link> */}
+          
         </div>
       </header>
     </>

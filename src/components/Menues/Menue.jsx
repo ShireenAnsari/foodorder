@@ -1,8 +1,8 @@
 'use client'
 import { style } from "@/app/utills/style"
-import Menueitems from "./Menueitems"
 import Heading from "../smallitems/Heading"
 import { useEffect, useState } from "react"
+import MenuItem from "./MenuItem"
 
 const Menue = () => {
   const [bestsell,setBestSellers]=useState([])
@@ -31,7 +31,7 @@ useEffect(()=>{
         <div className={style.menuetopdiv}>
           {bestsell?.length>0 && bestsell.map((itm,i)=>(
             <div key={i}>
-                <Menueitems itm={itm}/>
+                <MenuItem {...itm}/>
             </div>
          
           ))}

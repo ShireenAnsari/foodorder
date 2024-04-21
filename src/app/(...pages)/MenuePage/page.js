@@ -1,5 +1,7 @@
 'use client'
 
+import MenuItem from "@/components/Menues/MenuItem";
+import Heading from "@/components/smallitems/Heading";
 import { useEffect, useState } from "react"
 
 export default function MenuePage() {
@@ -29,10 +31,19 @@ export default function MenuePage() {
   
   return (
     <section>
-      {categories?.length>0 && categories?.map((c)=>(<div>
-        
-      </div>))}
-menue items with categories
+      
+      {categories?.length > 0 && categories.map(c => (
+        <div key={c._id}>
+          <div className="text-center">
+            <Heading text={c.name} />
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4 mt-6 mb-12">
+            {menue.filter(item => item.category === c._id).map(item => (
+              <MenuItem key={item._id} {...item} />
+            ))}
+          </div>
+        </div>
+      ))}
     </section>
   )
 }
