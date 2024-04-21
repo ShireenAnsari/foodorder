@@ -1,7 +1,6 @@
 
 import Image from "next/image";
 import {useContext, useState} from "react";
-import FlyingButton from "react-flying-item";
 import MenuItemTile from "./MenuItemTile";
 import { CartContext } from "../Appcontext";
 import toast from "react-hot-toast";
